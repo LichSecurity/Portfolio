@@ -18,25 +18,16 @@
       z-index: 3;
       position: relative;
     }
+
     .aside .logo {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .logo .profile-pic {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin: 0 auto 10px auto;
-      border: 2px solid red;
-      box-shadow: 0 0 10px red;
-    }
-    .logo .profile-pic img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+
     .logo-text span {
       display: block;
       font-size: 20px;
@@ -45,6 +36,22 @@
       text-shadow: 0 0 5px red;
       line-height: 1.2;
     }
+
+    .logo .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-top: 10px;
+      border: 2px solid red;
+      box-shadow: 0 0 10px red;
+    }
+
+    .logo .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body class="dark">
@@ -52,12 +59,12 @@
   <!-- Sidebar / Aside -->
   <div class="aside">
     <div class="logo">
-      <div class="profile-pic">
-        <img src="../images/profile.jpg" alt="Profile Picture" />
-      </div>
       <div class="logo-text">
         <span>L1ch</span>
         <span>S3c</span>
+      </div>
+      <div class="profile-pic">
+        <img src="../images/profile.jpg" alt="Profile Picture" />
       </div>
     </div>
     <ul class="nav">
@@ -92,9 +99,7 @@
             <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
           </div>
         </div>
-
         <!-- Add more cards here -->
-
       </div>
     </div>
   </section>
