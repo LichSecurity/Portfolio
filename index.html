@@ -5,22 +5,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Logan | Portfolio</title>
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/skins/color-red.css" />
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="images/hacker.png" />
 </head>
 <body class="dark">
+
   <canvas id="matrixCanvas"></canvas>
   <script src="js/matrix.js"></script>
 
   <div class="main-container">
-    <!-- Aside -->
+    <!-- Aside Start -->
     <div class="aside">
       <div class="logo">
         <a href="index.html"><span>L</span>ogan</a>
       </div>
-      <div class="nav-toggler"><span></span></div>
+      <div class="nav-toggler">
+        <span></span>
+      </div>
       <ul class="nav">
         <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
         <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
@@ -28,8 +37,9 @@
         <li><a href="#contact"><i class="fa fa-comments"></i> Contact</a></li>
       </ul>
     </div>
+    <!-- Aside End -->
 
-    <!-- Main Content -->
+    <!-- Main Content Start -->
     <div class="main-content">
 
       <!-- Home Section -->
@@ -40,12 +50,12 @@
               <h3 class="hello">Hello, my name is <span class="name">Logan</span></h3>
               <h3 class="my-profession">I'm a <span class="typing"></span></h3>
               <p>
-                I started my career in a call center, moved into help desk, and later became a network administrator. Now I work as a data analyst using Python, SQL, and visualization tools—while studying offensive security in my free time. I'm currently training for the OSCP certification and shifting toward red teaming and ethical hacking.
+                Welcome to my portfolio. I transitioned from call center work to help desk support, then into network security, and now data analytics. I use Python, SQL, and LLMs to help medical fundraisers succeed — but my end goal is hacking. I'm pursuing the OSCP and building my skill set every day.
               </p>
-              <a href="#" class="btn">Download CV</a>
+              <a href="#contact" class="btn hire-me">Let's Connect</a>
             </div>
             <div class="home-img padd-15">
-              <img src="images/hacker.png" alt="hero" />
+              <img src="images/hacker.png" alt="Logan" />
             </div>
           </div>
         </div>
@@ -61,47 +71,18 @@
           </div>
           <div class="row">
             <div class="about-content padd-15">
-              <div class="row">
-                <div class="about-text padd-15">
-                  <h3>I'm Logan and <span>OSCP Candidate</span></h3>
-                  <p>
-                    I started in a call center and moved up to help desk before transitioning into network administration. Today, I work as a data analyst, using Python, SQL, and data visualization to deliver insights and solve real-world problems. I've always had a passion for cybersecurity, so I’m now shifting toward ethical hacking and red teaming.<br><br>
-                    I’m currently working through Hack The Box and TJNull’s list in preparation for the OSCP. I have extensive experience working with APIs, automation, and scripting. I’m also diving into bug bounty hunting, focusing on web app testing and static code review.
-                  </p>
+              <div class="about-text padd-15">
+                <p>
+                  My journey started in a call center. I felt unfulfilled, but I knew I loved tech. That led me to help desk work, where I grew rapidly. I dove into networking, earned my degree in cybersecurity, and stepped into a network admin role.  
+                  <br><br>
+                  COVID hit hard, but I adapted and kept going. Now, I’m a data analyst helping medical fundraisers raise millions, while leveling up my skills in offensive security. I’m preparing for the OSCP and spend my free time exploring vulnerabilities, CTFs, and bug bounties.
+                  <br><br>
+                  My ultimate goal is to become a world-class penetration tester.
+                </p>
+                <div class="buttons padd-15">
+                  <a href="https://github.com/lichsecurity" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                  <a href="https://www.linkedin.com/in/your-link" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
-              </div>
-              <div class="row">
-                <div class="personal-info padd-15">
-                  <div class="row">
-                    <div class="info-item padd-15">
-                      <p>Email: <span>you@example.com</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>City: <span>Cleveland, OH</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Current Role: <span>Data Analyst</span></p>
-                    </div>
-                    <div class="info-item padd-15">
-                      <p>Focus: <span>Offensive Security / OSCP</span></p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="buttons padd-15">
-                      <a href="#" class="btn">Download CV</a>
-                      <a href="#contact" class="btn hire-me">Hire Me</a>
-                    </div>
-                    <div class="buttons padd-15">
-                      <a href="https://github.com/lichsecurity" target="_blank" class="btn">
-                        <i class="fab fa-github"></i> GitHub
-                      </a>
-                      <a href="https://linkedin.com/in/YOUR-LINK" target="_blank" class="btn">
-                        <i class="fab fa-linkedin"></i> LinkedIn
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Removed skills section (cringy progress bars) -->
               </div>
             </div>
           </div>
@@ -113,52 +94,66 @@
         <div class="container">
           <div class="row">
             <div class="section-title padd-15">
-              <h2>Educations & Experience</h2>
+              <h2>Experience & Education</h2>
             </div>
           </div>
           <div class="row">
-            <div class="education padd-15">
-              <h3 class="title">Education</h3>
-              <div class="timeline-box padd-15">
-                <div class="timeline shadow-dark">
-                  <div class="timeline-item">
-                    <div class="circle-dot"></div>
-                    <h3 class="timeline-date"><i class="fa fa-calendar"></i> 2025 (Planned)</h3>
-                    <h4 class="timeline-title">OSCP</h4>
-                    <p class="timeline-text">
-                      Currently preparing with HTB/PG and TJNull’s list. Will challenge exam this year.
-                    </p>
-                  </div>
-                  <div class="timeline-item">
-                    <div class="circle-dot"></div>
-                    <h3 class="timeline-date"><i class="fa fa-calendar"></i> 2023</h3>
-                    <h4 class="timeline-title">CompTIA Security+</h4>
-                    <p class="timeline-text">Certified in foundational cybersecurity principles.</p>
-                  </div>
+
+            <div class="timeline-box padd-15">
+              <div class="timeline shadow-dark">
+
+                <div class="timeline-item">
+                  <div class="circle-dot"></div>
+                  <h3 class="timeline-title">Data Analyst</h3>
+                  <p class="timeline-text">Supporting hospitals by analyzing medical fundraiser data. Heavy use of Python, SQL, Tableau, and LLMs to drive results. Hybrid role focused on impact and automation.</p>
                 </div>
+
+                <div class="timeline-item">
+                  <div class="circle-dot"></div>
+                  <h3 class="timeline-title">Security Researcher</h3>
+                  <p class="timeline-text">Freelancing with platforms like HackerOne, exploring web vulnerabilities and bug bounty programs while sharpening real-world hacking skills.</p>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="circle-dot"></div>
+                  <h3 class="timeline-title">Network Security Administrator</h3>
+                  <p class="timeline-text">Led security operations, managed infrastructure, deployed vulnerability assessments, and spearheaded phishing campaigns and training.</p>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="circle-dot"></div>
+                  <h3 class="timeline-title">Help Desk Technician</h3>
+                  <p class="timeline-text">Front-line support for technical issues, networking configurations, and software installs. Built foundational skills in IT operations and user support.</p>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="circle-dot"></div>
+                  <h3 class="timeline-title">Shift Manager</h3>
+                  <p class="timeline-text">Led teams in a fast-paced call center environment, developed people skills and accountability. The start of my work ethic journey.</p>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="circle-dot"></div>
+                  <h3 class="timeline-title">Bachelor’s Degree - Cybersecurity & Information Assurance</h3>
+                  <p class="timeline-text">Western Governors University</p>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="circle-dot"></div>
+                  <h3 class="timeline-title">Certifications</h3>
+                  <p class="timeline-text">
+                    CompTIA Security+<br>
+                    CompTIA Network+<br>
+                    CompTIA A+<br>
+                    CompTIA Project+<br>
+                    CompTIA CySA+<br>
+                    CompTIA PenTest+
+                  </p>
+                </div>
+
               </div>
             </div>
-            <div class="experience padd-15">
-              <h3 class="title">Experience</h3>
-              <div class="timeline-box padd-15">
-                <div class="timeline shadow-dark">
-                  <div class="timeline-item">
-                    <div class="circle-dot"></div>
-                    <h3 class="timeline-date"><i class="fa fa-calendar"></i> Present</h3>
-                    <h4 class="timeline-title">Data Analyst</h4>
-                    <p class="timeline-text">
-                      SQL, Python, data visualization, and automation. Building AI and scraping tools. Experience with APIs and security automation.
-                    </p>
-                  </div>
-                  <div class="timeline-item">
-                    <div class="circle-dot"></div>
-                    <h3 class="timeline-date"><i class="fa fa-calendar"></i> Past</h3>
-                    <h4 class="timeline-title">Network Administrator</h4>
-                    <p class="timeline-text">Managed infrastructure and supported technical operations.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
@@ -171,37 +166,33 @@
               <h2>Contact Me</h2>
             </div>
           </div>
-          <h3 class="contact-title padd-15">Do You Have Any Questions?</h3>
-          <h4 class="contact-sub-title padd-15">Let's Connect</h4>
           <div class="row">
-            <div class="contact-info-item padd-15">
-              <div class="icon"><i class="fa fa-phone"></i></div>
-              <h4>Phone</h4>
-              <p>+1 (555) 555-5555</p>
-            </div>
-            <div class="contact-info-item padd-15">
-              <div class="icon"><i class="fa fa-map-marker-alt"></i></div>
-              <h4>Location</h4>
-              <p>Cleveland, OH</p>
-            </div>
             <div class="contact-info-item padd-15">
               <div class="icon"><i class="fa fa-envelope"></i></div>
               <h4>Email</h4>
-              <p>you@example.com</p>
+              <p>youremail@example.com</p>
             </div>
             <div class="contact-info-item padd-15">
               <div class="icon"><i class="fab fa-linkedin"></i></div>
               <h4>LinkedIn</h4>
-              <p><a href="https://linkedin.com/in/YOUR-LINK" target="_blank">linkedin.com/in/YOUR-LINK</a></p>
+              <p><a href="https://www.linkedin.com/in/your-link" target="_blank">/your-link</a></p>
+            </div>
+            <div class="contact-info-item padd-15">
+              <div class="icon"><i class="fab fa-github"></i></div>
+              <h4>GitHub</h4>
+              <p><a href="https://github.com/lichsecurity" target="_blank">lichsecurity</a></p>
             </div>
           </div>
         </div>
       </section>
 
-    </div> <!-- End main-content -->
-  </div> <!-- End main-container -->
+    </div>
+    <!-- Main Content End -->
+  </div>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
   <script src="js/script.js"></script>
+
 </body>
 </html>
