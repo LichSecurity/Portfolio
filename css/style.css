@@ -196,10 +196,12 @@ ul {
 }
 
 .aside .logo {
-  position: absolute;
-  top: 30px;
+  position: relative;
+  top: 0;
   width: 100%;
   text-align: center;
+  margin-bottom: 50px;
+  padding-top: 20px;
 }
 
 .handle {
