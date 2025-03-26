@@ -159,56 +159,66 @@
       </section>
 
       <!-- Contact Section -->
-   <form action="https://formsubmit.co/lhugli@protonmail.com" method="POST">
-  <!-- Enable CAPTCHA -->
-  <input type="hidden" name="_captcha" value="true" />
+  <!-- Contact Section -->
+<section class="contact section" id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="section-title padd-15">
+        <h2>Contact Me</h2>
+      </div>
+    </div>
 
-  <!-- Optional: Redirect to thank-you page -->
-  <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> -->
+    <form action="https://formsubmit.co/lhugli@protonmail.com" method="POST">
+      <!-- Enable CAPTCHA -->
+      <input type="hidden" name="_captcha" value="true" />
 
-  <div class="row">
-    <div class="form-item col-6 padd-15">
-      <div class="form-group">
-        <input
-          type="text"
-          name="name"
-          class="form-control"
-          placeholder="Your Name"
-          required
-        />
+      <div class="row">
+        <div class="form-item col-6 padd-15">
+          <div class="form-group">
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              placeholder="Your Name"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-item col-6 padd-15">
+          <div class="form-group">
+            <input
+              type="text"
+              name="company"
+              class="form-control"
+              placeholder="Company"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-item col-6 padd-15">
-      <div class="form-group">
-        <input
-          type="text"
-          name="company"
-          class="form-control"
-          placeholder="Company"
-        />
+
+      <div class="row">
+        <div class="form-item col-12 padd-15">
+          <div class="form-group">
+            <textarea
+              name="message"
+              class="form-control"
+              placeholder="Your Message"
+              required
+            ></textarea>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div class="row">
+        <div class="form-item col-12 padd-15">
+          <div class="form-group">
+            <button type="submit" class="btn">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="row">
-    <div class="form-item col-12 padd-15">
-      <div class="form-group">
-        <textarea
-          name="message"
-          class="form-control"
-          placeholder="Your Message"
-          required
-        ></textarea>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-item col-12 padd-15">
-      <div class="form-group">
-        <button type="submit" class="btn">Send Message</button>
-      </div>
-    </div>
-  </div>
-</form>
+</section>
     <!-- Main Content End -->
   </div>
 
