@@ -229,3 +229,15 @@
 
 </body>
 </html>
+<script>
+  // Check if there's a ?section in the URL
+  const params = new URLSearchParams(window.location.search);
+  const section = params.get("section");
+
+  if (section) {
+    const targetLink = document.querySelector(`.nav a[href="#${section}"]`);
+    if (targetLink) {
+      targetLink.click(); // Simulates clicking the nav link so the animation fires
+    }
+  }
+</script>
