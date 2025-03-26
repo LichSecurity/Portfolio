@@ -10,15 +10,11 @@
 
 canvas {
   position: fixed;
-  top: auto;
-  left: auto;
-  background-color: black;
-  z-index: 2;
-  background-size: cover;
-  background-blend-mode: multiply;
-  background-size: auto;
-  scroll-behavior: smooth;
+  top: 0;
+  left: 0;
+  z-index: 1; /* BELOW the sidebar */
 }
+
 
 /* Global CSS Start */
 * {
