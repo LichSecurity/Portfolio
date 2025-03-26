@@ -12,7 +12,10 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1; /* BELOW the sidebar */
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Must be below sidebar */
+  pointer-events: none;
 }
 
 
@@ -175,13 +178,13 @@ ul {
 
 /* Aside Start */
 .aside {
-  width: 230px;
-  height: 100%;
+  z-index: 999; /* Ensure this sits above the canvas */
   position: fixed;
   left: 0;
   top: 0;
+  width: 230px;
+  height: 100%;
   padding: 30px;
-  z-index: 999; /* Ensure it's above the matrix canvas */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -298,16 +301,10 @@ ul {
 }
 
 .aside .nav li a {
-  font-size: 16px;
-  font-weight: 600;
-  display: block;
-  border-bottom: 1px solid var(--bg-black-50);
-  color: var(--text-black-900);
-  padding: 5px 15px;
-  opacity: 0;
-  animation: slideRight 0.5s ease forwards;
-  animation-delay: calc(0.2s * var(--i));
+  color: white !important;
+  opacity: 1;
 }
+
 .aside .nav li a::after {
   content: "";
   width: 0;
