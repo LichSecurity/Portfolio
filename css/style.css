@@ -212,6 +212,22 @@ ul {
   position: relative;
 }
 
+.logo .profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 2px solid red;
+  box-shadow: 0 0 10px red;
+}
+
+.logo .profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .aside .logo a span {
   font-family: "Poppins", sans-serif;
   font-size: 40px;
