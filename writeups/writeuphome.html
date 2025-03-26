@@ -2,109 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Logan | Writeups</title>
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/skins/color-red.css" />
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="../images/hacker.png" />
-  <style>
-    body {
-      background-color: black;
-    }
-    .writeup-container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 80px 30px;
-    }
-    .writeup-intro {
-      color: white;
-      font-size: 20px;
-      margin-bottom: 40px;
-      text-align: center;
-    }
-    .writeup-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .writeup-card {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid red;
-      border-radius: 12px;
-      padding: 25px;
-      width: 300px;
-      box-shadow: 0 0 10px red, 0 0 25px red;
-      transition: transform 0.3s ease;
-    }
-    .writeup-card:hover {
-      transform: scale(1.05);
-    }
-    .writeup-card h3 {
-      color: var(--skin-color);
-      margin-bottom: 10px;
-    }
-    .writeup-card p {
-      color: #ddd;
-      font-size: 15px;
-      margin-bottom: 15px;
-    }
-    .writeup-card a {
-      color: white;
-      text-decoration: none;
-      background: var(--skin-color);
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-weight: bold;
-      display: inline-block;
-    }
-    .writeup-card a:hover {
-      box-shadow: 0 0 10px red, 0 0 25px red;
-    }
-  </style>
 </head>
-
 <body class="dark">
+
+  <!-- Matrix Background -->
   <canvas id="matrixCanvas"></canvas>
   <script src="../js/matrix.js"></script>
 
-  <div class="writeup-container">
-    <div class="section-title">
-      <h2>Writeups</h2>
+  <section class="section" style="padding-left: 15px;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Writeups</h2>
+      </div>
+      <p style="color: var(--text-black-700); margin-bottom: 40px; font-size: 18px;">
+        These are walkthroughs of machines, real vulnerabilities, and interesting security problems I’ve solved.
+      </p>
+
+      <div class="row">
+        <!-- Sample Writeup Card -->
+        <div class="padd-15" style="flex: 0 0 33.33%; max-width: 33.33%;">
+          <div style="background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; box-shadow: 0 0 10px red;">
+            <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
+            <p style="color: var(--text-black-700); font-size: 14px;">Enumeration > Exploitation > PrivEsc</p>
+            <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
+          </div>
+        </div>
+
+        <!-- Add more cards here -->
+      </div>
     </div>
-    <p class="writeup-intro">
-      This is my archive of walkthroughs, writeups, and notes — mostly OSCP prep and bug bounty work. Everything here is original and written to help reinforce my knowledge while sharing back with the community.
-    </p>
+  </section>
 
-    <div class="writeup-grid">
-
-      <!-- Card #1 -->
-      <div class="writeup-card">
-        <h3>Legacy (OSCP)</h3>
-        <p>Windows box focused on SMB enumeration and MS08-067. Classic OSCP machine that tests fundamentals.</p>
-        <a href="legacy.html">Read Writeup</a>
-      </div>
-
-      <!-- Card #2 -->
-      <div class="writeup-card">
-        <h3>Buff (OSCP)</h3>
-        <p>Web-focused box involving Gym Management software with unauthenticated RCE via buffer overflow.</p>
-        <a href="buff.html">Read Writeup</a>
-      </div>
-
-      <!-- Card #3 -->
-      <div class="writeup-card">
-        <h3>Simple CORS Misconfig</h3>
-        <p>Bug bounty writeup for a misconfigured CORS header that led to account takeover in staging environment.</p>
-        <a href="cors-bounty.html">Read Writeup</a>
-      </div>
-
-    </div>
-  </div>
 </body>
 </html>
