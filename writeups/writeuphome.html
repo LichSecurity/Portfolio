@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Logan | Writeups</title>
+  <title>L1ch S3c | Writeups</title>
 
   <!-- Styles -->
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/skins/color-red.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  
+
   <style>
     canvas {
       pointer-events: none;
@@ -18,33 +18,62 @@
       z-index: 3;
       position: relative;
     }
+    .aside .logo {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-top: 20px;
+    }
+    .logo .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 10px auto;
+      border: 2px solid red;
+      box-shadow: 0 0 10px red;
+    }
+    .logo .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .logo-text span {
+      display: block;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 0 5px red;
+      line-height: 1.2;
+    }
   </style>
 </head>
 <body class="dark">
 
-<div class="aside">
-  <div class="logo">
-    <div class="profile-pic">
-      <img src="../images/profile.jpg" alt="Profile Picture" />
+  <!-- Sidebar / Aside -->
+  <div class="aside">
+    <div class="logo">
+      <div class="profile-pic">
+        <img src="../images/profile.jpg" alt="Profile Picture" />
+      </div>
+      <div class="logo-text">
+        <span>L1ch</span>
+        <span>S3c</span>
+      </div>
     </div>
-    <div class="logo-text">
-      <span style="display: block; font-size: 20px; font-weight: 700; color: white; margin-top: 10px;">L1ch</span>
-      <span style="display: block; font-size: 20px; font-weight: 700; color: white;">S3c</span>
-    </div>
+    <ul class="nav">
+      <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
+      <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
+      <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
+      <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
+      <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
+    </ul>
   </div>
-  <ul class="nav">
-    <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
-    <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
-    <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
-    <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
-    <li><a href="../writeups/writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
-  </ul>
-</div>
 
   <!-- Matrix Background -->
   <canvas id="matrixCanvas"></canvas>
   <script src="../js/matrix.js"></script>
 
+  <!-- Writeups Content -->
   <section class="section" style="padding-left: 15px;">
     <div class="container">
       <div class="section-title">
@@ -63,7 +92,9 @@
             <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
           </div>
         </div>
+
         <!-- Add more cards here -->
+
       </div>
     </div>
   </section>
