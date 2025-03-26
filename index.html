@@ -159,39 +159,56 @@
       </section>
 
       <!-- Contact Section -->
-     <!-- Contact form -->
-<div class="row">
-  <div class="contact-form padd-15">
-    <form action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
-      <div class="row">
-        <div class="form-item col-6 padd-15">
-          <div class="form-group">
-            <input type="text" name="name" class="form-control" placeholder="Your Name" required />
-          </div>
-        </div>
-        <div class="form-item col-6 padd-15">
-          <div class="form-group">
-            <input type="text" name="company" class="form-control" placeholder="Company" />
-          </div>
-        </div>
+   <form action="https://formsubmit.co/lhugli@protonmail.com" method="POST">
+  <!-- Enable CAPTCHA -->
+  <input type="hidden" name="_captcha" value="true" />
+
+  <!-- Optional: Redirect to thank-you page -->
+  <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> -->
+
+  <div class="row">
+    <div class="form-item col-6 padd-15">
+      <div class="form-group">
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          placeholder="Your Name"
+          required
+        />
       </div>
-      <div class="row">
-        <div class="form-item col-12 padd-15">
-          <div class="form-group">
-            <textarea name="message" class="form-control" placeholder="Your Message" required></textarea>
-          </div>
-        </div>
+    </div>
+    <div class="form-item col-6 padd-15">
+      <div class="form-group">
+        <input
+          type="text"
+          name="company"
+          class="form-control"
+          placeholder="Company"
+        />
       </div>
-      <div class="row">
-        <div class="form-item col-12 padd-15">
-          <div class="form-group">
-            <button type="submit" class="btn">Send Message</button>
-          </div>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+  <div class="row">
+    <div class="form-item col-12 padd-15">
+      <div class="form-group">
+        <textarea
+          name="message"
+          class="form-control"
+          placeholder="Your Message"
+          required
+        ></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-item col-12 padd-15">
+      <div class="form-group">
+        <button type="submit" class="btn">Send Message</button>
+      </div>
+    </div>
+  </div>
+</form>
     <!-- Main Content End -->
   </div>
 
