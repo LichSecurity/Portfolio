@@ -28,12 +28,14 @@ for (let i = 0; i < totalNavList; i++) {
     //Adding active class
     this.classList.add("active");
     showSection(this); //Function call
+
     //Nav click event - Hiding the nav menu
     if (window.innerWidth < 1200) {
       asideSectionTogglerBtn();
     }
   });
 }
+
 function showSection(element) {
   //Loop for removing active class
   for (let k = 0; k < totalSection; k++) {
@@ -43,7 +45,7 @@ function showSection(element) {
   document.querySelector("#" + target).classList.add("active");
 }
 
-//For Hire me section
+// For Hire Me section
 document.querySelector(".hire-me").addEventListener("click", function () {
   showSection(this);
   updateNav(this);
@@ -62,24 +64,17 @@ function updateNav(element) {
   }
 }
 
-//For Nav Toggler Button
+// Nav Toggler Button
 const navTogglerBtn = document.querySelector(".nav-toggler"),
   aside = document.querySelector(".aside");
+
 navTogglerBtn.addEventListener("click", () => {
   asideSectionTogglerBtn();
 });
 
+// Toggle aside and body scroll lock
 function asideSectionTogglerBtn() {
   aside.classList.toggle("open");
   navTogglerBtn.classList.toggle("open");
-}
-
-const navToggler = document.querySelector(".nav-toggler");
-const aside = document.querySelector(".aside");
-
-navToggler.addEventListener("click", () => {
-  aside.classList.toggle("open");
-  navToggler.classList.toggle("open");
   document.body.classList.toggle("lock-scroll");
-});
-
+}
