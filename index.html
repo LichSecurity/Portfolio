@@ -230,23 +230,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
   <script src="js/script.js"></script>
 <script>
-  window.addEventListener('load', () => {
-    const hash = window.location.hash;
-    if (hash) {
-      const targetSection = document.querySelector(hash);
-      const allSections = document.querySelectorAll('.section');
-      const navLinks = document.querySelectorAll('.nav li a');
+  window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
 
-      allSections.forEach((section) => section.classList.remove('active', 'back-section'));
-      navLinks.forEach((link) => link.classList.remove('active'));
+    if (section) {
+      // Remove existing active classes
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active', 'back-section'));
+      document.querySelectorAll('.nav li a').forEach(link => link.classList.remove('active'));
 
-      if (targetSection) {
-        targetSection.classList.add('active');
-        const correspondingLink = document.querySelector(`.nav li a[href="${hash}"]`);
-        if (correspondingLink) correspondingLink.classList.add('active');
-      }
+      // Activate the correct section and nav link
+      const targetSection = document.getElementById(section);
+      const targetNav = document.querySelector(`.nav li a[href="#${section}"]`);
 
-      // Optional: scroll to top when navigating
+      if (targetSection) targetSection.classList.add('active');
+      if (targetNav) targetNav.classList.add('active');
+
+      // Scroll to the top of the page
       window.scrollTo(0, 0);
     }
   });
