@@ -14,35 +14,65 @@
     canvas {
       pointer-events: none;
     }
+
     .section {
       z-index: 3;
       position: relative;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    @media (max-width: 1190px) {
+      .section {
+        padding-left: 30px;
+        margin-left: 0 !important;
+      }
+
+      .aside {
+        display: none;
+      }
+
+      .container {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .padd-15 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
     }
   </style>
 </head>
 <body class="dark">
 
-<div class="aside">
-  <div class="logo">
-  <a href="index.html"><span>L1chS3c</span></a>
-  <div class="profile-pic">
-    <img src="../images/profile.jpg" alt="Profile Picture">
+  <!-- Sidebar Navigation -->
+  <div class="aside">
+    <div class="logo">
+      <a href="index.html"><span>L1chS3c</span></a>
+      <div class="profile-pic">
+        <img src="../images/profile.jpg" alt="Profile Picture">
+      </div>
+    </div>
+    <ul class="nav">
+      <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
+      <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
+      <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
+      <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
+      <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
+    </ul>
   </div>
-</div>
-  <ul class="nav">
-    <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
-    <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
-    <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
-    <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
-    <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
-  </ul>
-</div>
 
   <!-- Matrix Background -->
   <canvas id="matrixCanvas"></canvas>
   <script src="../js/matrix.js"></script>
 
-  <section class="section" style="padding-left: 15px;">
+  <!-- Writeup Section -->
+  <section class="section">
     <div class="container">
       <div class="section-title">
         <h2>Writeups</h2>
