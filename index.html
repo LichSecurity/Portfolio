@@ -2,157 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>L1ch S3c | Portfolio</title>
-
-  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/skins/color-red.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
   <link rel="icon" type="image/x-icon" href="images/hacker.png" />
 </head>
-
 <body class="dark">
-  <!-- Matrix Background -->
-  <canvas id="matrixCanvas"></canvas>
-  <script src="js/matrix.js"></script>
 
-  <div class="main-container">
-    <!-- Sidebar -->
-    <div class="aside">
-      <div class="logo">
-        <div class="logo-text">
-          <span>L1ch</span>
-          <span>S3c</span>
-        </div>
-        <div class="profile-pic">
-          <img src="images/profile.jpg" alt="Profile Picture" />
+<canvas id="matrixCanvas"></canvas>
+<script src="js/matrix.js"></script>
+
+<div class="main-container">
+  <!-- Aside Start -->
+  <div class="aside">
+    <div class="logo">
+      <div class="logo-text">
+        <span>L1ch</span>
+        <span>S3c</span>
+      </div>
+      <div class="profile-pic">
+        <img src="images/profile.jpg" alt="Profile Picture" />
+      </div>
+    </div>
+    <ul class="nav">
+      <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
+      <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
+      <li><a href="#education"><i class="fa fa-book"></i> Education</a></li>
+      <li><a href="#contact"><i class="fa fa-comments"></i> Contact</a></li>
+      <li><a href="writeups/writeuphome.html"><i class="fa fa-terminal"></i> Writeups</a></li>
+    </ul>
+  </div>
+  <!-- Aside End -->
+
+  <!-- Main Content Start -->
+  <div class="main-content">
+
+    <!-- Home Section -->
+    <section class="home active section" id="home">
+      <div class="container">
+        <div class="row">
+          <div class="home-info padd-15">
+            <h3 class="hello">Hello, my name is <span class="name">Logan</span></h3>
+            <h3 class="my-profession">I'm a <span class="typing">Ethical Hacker</span></h3>
+            <p>
+              Welcome to my portfolio. I transitioned from call center work to help desk support, then into network security, and now data analytics. I use Python, SQL, and LLMs to help medical fundraisers succeed — but my end goal is hacking. I'm pursuing the OSCP and building my skill set every day.
+            </p>
+            <a href="#contact" class="btn hire-me">Let's Connect</a>
+          </div>
+          <div class="home-img padd-15">
+            <img src="images/hacker.png" alt="Hacker Logo" />
+          </div>
         </div>
       </div>
-      <ul class="nav">
-        <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
-        <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
-        <li><a href="#education"><i class="fa fa-book"></i> Education</a></li>
-        <li><a href="#contact"><i class="fa fa-comments"></i> Contact</a></li>
-        <li><a href="writeups/writeuphome.html"><i class="fa fa-terminal"></i> Writeups</a></li>
-      </ul>
-    </div>
+    </section>
 
-    <!-- Main Content -->
-    <div class="main-content">
+    <!-- Other Sections... (about, education, contact, etc.) -->
+    <!-- You already have those built out, just paste them below this -->
 
-      <!-- Home -->
-      <section class="home active section" id="home">
-        <div class="container">
-          <div class="row">
-            <div class="home-info padd-15">
-              <h3 class="hello">Hello, my name is <span class="name">Logan</span></h3>
-              <h3 class="my-profession">I'm a <span class="typing">Ethical Hacker</span></h3>
-              <p>
-                Welcome to my portfolio. I transitioned from call center work to help desk support, then into network security, and now data analytics. I use Python, SQL, and LLMs to help medical fundraisers succeed — but my end goal is hacking. I'm pursuing the OSCP and building my skill set every day.
-              </p>
-              <a href="#contact" class="btn hire-me">Let's Connect</a>
-            </div>
-            <div class="home-img padd-15">
-              <img src="images/hacker.png" alt="Hacker Logo" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- About -->
-      <section class="about section" id="about">
-        <div class="container">
-          <div class="row">
-            <div class="section-title padd-15">
-              <h2>About Me</h2>
-            </div>
-          </div>
-          <div class="row">
-            <div class="about-content padd-15">
-              <div class="about-text padd-15">
-                <p>
-                  My journey started in a call center. I felt unfulfilled, but I knew I loved tech. That led me to help desk work, where I grew rapidly. I dove into networking, earned my degree in cybersecurity, and stepped into a network admin role.  
-                  <br><br>
-                  COVID hit hard, but I adapted and kept going. Now, I’m a data analyst helping medical fundraisers raise millions, while leveling up my skills in offensive security. I’m preparing for the OSCP and spend my free time exploring vulnerabilities, CTFs, and bug bounties.
-                  <br><br>
-                  My ultimate goal is to become a world-class penetration tester.
-                </p>
-                <div class="buttons padd-15" style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 40px;">
-                  <a href="https://github.com/lichsecurity" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                  <a href="https://www.linkedin.com/in/logan-hugli-a86301223/" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Education -->
-      <section class="education section" id="education">
-        <div class="container">
-          <div class="row">
-            <div class="section-title padd-15">
-              <h2>Experience & Education</h2>
-            </div>
-          </div>
-          <div class="row">
-            <div class="timeline-box padd-15">
-              <div class="timeline shadow-dark">
-                <!-- Your timeline items go here -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact -->
-      <section class="contact section" id="contact">
-        <div class="container">
-          <div class="row">
-            <div class="section-title padd-15">
-              <h2>Contact Me</h2>
-            </div>
-          </div>
-          <form action="https://formsubmit.co/lhugli@protonmail.com" method="POST" class="contact-form padd-15" style="max-width: 700px; margin: auto;">
-            <input type="hidden" name="_captcha" value="true" />
-            <div class="row">
-              <div class="form-item col-6 padd-15">
-                <input type="text" name="name" class="form-control" placeholder="Your Name" required />
-              </div>
-              <div class="form-item col-6 padd-15">
-                <input type="text" name="company" class="form-control" placeholder="Company" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-item col-12 padd-15">
-                <textarea name="message" class="form-control" placeholder="Your Message" required></textarea>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-item col-12 padd-15" style="text-align: center;">
-                <button type="submit" class="btn">Send Message</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </section>
-
-    </div>
   </div>
+</div>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-  <script src="js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+<script src="js/script.js"></script>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const section = params.get("section");
-    if (section) {
-      const targetLink = document.querySelector(`.nav a[href="#${section}"]`);
-      if (targetLink) targetLink.click();
-    }
-  </script>
 </body>
 </html>
