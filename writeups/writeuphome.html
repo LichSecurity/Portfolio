@@ -106,18 +106,27 @@
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
 
-      // Only trigger the override for links that go to index.html with a section
       if (href.includes('../index.html#')) {
         e.preventDefault();
         const section = href.split('#')[1];
-        window.location.href = `../index.html?section=${section}`;
-      } else {
-        // Allow default behavior for all other links (e.g., writeuphome.html)
-        return;
+        const targetURL = `../index.html?section=${section}`;
+
+        // Close the nav if it's open (mobile view)
+        const aside = document.querySelector('.aside');
+        const toggler = document.querySelector('.nav-toggler');
+        if (aside.classList.contains('open')) {
+          aside.classList.remove('open');
+          toggler.classList.remove('open');
+          document.body.classList.remove('lock-scroll');
+        }
+
+        // Redirect to index with section param
+        window.location.href = targetURL;
       }
     });
   });
 </script>
+
 
 </body>
 </html>
