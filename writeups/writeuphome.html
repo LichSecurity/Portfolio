@@ -108,7 +108,7 @@
       const href = this.getAttribute('href');
       if (href.includes('index.html#')) {
         e.preventDefault();
-        window.location.href = href;
+        window.location.href = `../index.html?section=${section}`;
       }
     });
   });
