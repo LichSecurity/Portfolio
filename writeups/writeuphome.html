@@ -18,33 +18,31 @@
       z-index: 3;
       position: relative;
     }
+    .nav-toggler {
+      display: none;
+    }
     @media (max-width: 1190px) {
-      .section {
-        padding-left: 0 !important;
+      .nav-toggler {
+        display: flex !important;
       }
-    }
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
-    .scrollable {
-      overflow-y: auto;
     }
   </style>
 </head>
 <body class="dark">
 
-<!-- Sidebar -->
+<!-- ASIDE NAVIGATION -->
 <div class="aside">
   <div class="logo">
-    <a href="index.html"><span>L1chS3c</span></a>
+    <a href="../index.html"><span>L1chS3c</span></a>
     <div class="profile-pic">
       <img src="../images/profile.jpg" alt="Profile Picture">
     </div>
   </div>
-  <div class="nav-toggler">
+
+  <div class="nav-toggler" onclick="document.querySelector('.aside').classList.toggle('open'); this.classList.toggle('open');">
     <span></span>
   </div>
+
   <ul class="nav">
     <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
     <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
@@ -54,12 +52,12 @@
   </ul>
 </div>
 
-<!-- Matrix Background -->
+<!-- MATRIX BACKGROUND -->
 <canvas id="matrixCanvas"></canvas>
 <script src="../js/matrix.js"></script>
 
-<!-- Main Content -->
-<section class="section scrollable">
+<!-- MAIN CONTENT -->
+<section class="section">
   <div class="container">
     <div class="section-title">
       <h2>Writeups</h2>
@@ -69,7 +67,7 @@
     </p>
 
     <div class="row">
-      <!-- Sample Writeup Card -->
+      <!-- Writeup Card -->
       <div class="padd-15" style="flex: 0 0 33.33%; max-width: 33.33%;">
         <div style="background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; box-shadow: 0 0 10px red;">
           <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
@@ -77,20 +75,10 @@
           <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
         </div>
       </div>
+      <!-- Add more cards here -->
     </div>
   </div>
 </section>
-
-<!-- Mobile Nav Toggle Script -->
-<script>
-  const navToggler = document.querySelector(".nav-toggler");
-  const aside = document.querySelector(".aside");
-
-  navToggler.addEventListener("click", () => {
-    aside.classList.toggle("open");
-    navToggler.classList.toggle("open");
-  });
-</script>
 
 </body>
 </html>
