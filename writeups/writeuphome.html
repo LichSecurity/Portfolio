@@ -102,41 +102,39 @@
   </div>
 </section>
 <script>
-  document.querySelectorAll('.nav li a').forEach(link => {
-    link.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
+  window.addEventListener("DOMContentLoaded", () => {
+    // Fix: Close nav bar if user arrives from writeups
+    const aside = document.querySelector('.aside');
+    const toggler = document.querySelector('.nav-toggler');
 
-      // Only intercept index.html section links
-      if (href.includes('../index.html#')) {
-        e.preventDefault();
+    aside.classList.remove('open');
+    toggler.classList.remove('open');
+    document.body.classList.remove('lock-scroll');
 
-        // Grab the section target
-        const section = href.split('#')[1];
-        const redirectTo = `../index.html?section=${section}`;
+    const params = new URLSearchParams(window.location.search);
+    const section = params.get("section");
 
-        // Close the nav menu if open (for mobile)
-        const aside = document.querySelector('.aside');
-        const toggler = document.querySelector('.nav-toggler');
+    if (section) {
+      const targetSection = document.querySelector(`#${section}`);
+      const navLinks = document.querySelectorAll(".nav li a");
 
-        if (aside.classList.contains('open')) {
-          aside.classList.remove('open');
-        }
+      // Deactivate all sections
+      document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active", "back-section"));
+      // Deactivate all nav links
+      navLinks.forEach(link => link.classList.remove("active"));
 
-        if (toggler.classList.contains('open')) {
-          toggler.classList.remove('open');
-        }
+      // Activate target section
+      if (targetSection) targetSection.classList.add("active");
 
-        document.body.classList.remove('lock-scroll');
+      // Activate corresponding nav link
+      const matchingLink = document.querySelector(`.nav a[href="#${section}"]`);
+      if (matchingLink) matchingLink.classList.add("active");
 
-        // Delay slightly to allow close animation before redirecting
-        setTimeout(() => {
-          window.location.href = redirectTo;
-        }, 150); // 150ms delay
-      }
-    });
+      // Scroll to top of section
+      targetSection?.scrollIntoView({ behavior: "smooth" });
+    }
   });
 </script>
-
 
 </body>
 </html>
