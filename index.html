@@ -229,7 +229,28 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
   <script src="js/script.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    const hash = window.location.hash;
+    if (hash) {
+      const targetSection = document.querySelector(hash);
+      const allSections = document.querySelectorAll('.section');
+      const navLinks = document.querySelectorAll('.nav li a');
 
+      allSections.forEach((section) => section.classList.remove('active', 'back-section'));
+      navLinks.forEach((link) => link.classList.remove('active'));
+
+      if (targetSection) {
+        targetSection.classList.add('active');
+        const correspondingLink = document.querySelector(`.nav li a[href="${hash}"]`);
+        if (correspondingLink) correspondingLink.classList.add('active');
+      }
+
+      // Optional: scroll to top when navigating
+      window.scrollTo(0, 0);
+    }
+  });
+</script>
 </body>
 </html>
 <script>
