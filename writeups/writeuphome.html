@@ -101,14 +101,19 @@
     </div>
   </div>
 </section>
-
 <script>
   document.querySelectorAll('.nav li a').forEach(link => {
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-      if (href.includes('index.html#')) {
+
+      // Only trigger the override for links that go to index.html with a section
+      if (href.includes('../index.html#')) {
         e.preventDefault();
+        const section = href.split('#')[1];
         window.location.href = `../index.html?section=${section}`;
+      } else {
+        // Allow default behavior for all other links (e.g., writeuphome.html)
+        return;
       }
     });
   });
