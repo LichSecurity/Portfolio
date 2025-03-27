@@ -65,7 +65,7 @@ ul {
   top: 0;
   right: 0;
   bottom: 0;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: auto;
   transition: all 0.3s ease;
 }
@@ -854,6 +854,11 @@ h3.my-profession {
     left: -270px;
   }
 
+@media (max-width: 1190px) {
+  .nav-toggler {
+    display: flex !important;
+  }
+}
   .aside.open {
     left: 0;
   }
