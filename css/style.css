@@ -1050,3 +1050,17 @@ h3.my-profession {
   padding: 0 50px;
   margin-top: 10px;
 }
+
+@media (max-width: 760px) {
+  .section {
+    left: 0 !important;
+    padding: 30px 15px !important;
+    position: relative !important;
+  }
+
+  .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
