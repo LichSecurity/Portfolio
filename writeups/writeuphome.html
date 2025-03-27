@@ -26,6 +26,28 @@
         display: flex !important;
       }
     }
+
+    /* Writeup Cards Layout Fix */
+    .writeup-card {
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px red;
+      max-width: 100%;
+    }
+
+    .writeup-col {
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      padding: 15px;
+    }
+
+    @media (max-width: 990px) {
+      .writeup-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body class="dark">
@@ -68,8 +90,8 @@
 
     <div class="row">
       <!-- Writeup Card -->
-      <div class="padd-15" style="flex: 0 0 33.33%; max-width: 33.33%;">
-        <div style="background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; box-shadow: 0 0 10px red;">
+      <div class="padd-15 writeup-col">
+        <div class="writeup-card">
           <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
           <p style="color: var(--text-black-700); font-size: 14px;">Enumeration > Exploitation > PrivEsc</p>
           <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
