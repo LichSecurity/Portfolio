@@ -60,7 +60,8 @@ ul {
   display: block;
   padding: 0 30px;
   opacity: 1;
-  position: fixed;
+  position: relative;
+  scroll-margin-top: 60px; /* ensures content isn't hidden under sticky headers */
   left: 230px;
   top: 0;
   right: 0;
@@ -72,7 +73,9 @@ ul {
   backface-visibility: hidden;
   will-change: transform, opacity;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  z-index: 2;
 }
+
 
 .section.back-section {
   z-index: 1;
