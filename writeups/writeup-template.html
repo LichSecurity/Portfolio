@@ -4,14 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Writeup | MachineName</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/skins/color-red.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 </head>
 <body class="dark">
+  <!-- Matrix Background -->
   <canvas id="matrixCanvas"></canvas>
   <script src="../js/matrix.js"></script>
 
+  <!-- Sidebar / Nav -->
+  <div class="aside">
+    <div class="logo">
+      <a href="../index.html"><span>L1chS3c</span></a>
+      <div class="profile-pic">
+        <img src="../images/profile.jpg" alt="Profile Picture">
+      </div>
+    </div>
+    <ul class="nav">
+      <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
+      <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
+      <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
+      <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
+      <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Writeup Content -->
   <section class="section" style="padding-left: 15px;">
     <div class="container">
       <div class="section-title">
@@ -40,5 +61,8 @@
       <a href="writeuphome.html" class="btn">← Back to Writeups</a>
     </div>
   </section>
+
+  <!-- Optional: Script for toggling sidebar on mobile (if needed) -->
+  <script src="../js/script.js"></script>
 </body>
 </html>
