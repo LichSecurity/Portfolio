@@ -106,22 +106,32 @@
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
 
+      // Only intercept index.html section links
       if (href.includes('../index.html#')) {
         e.preventDefault();
-        const section = href.split('#')[1];
-        const targetURL = `../index.html?section=${section}`;
 
-        // Close the nav if it's open (mobile view)
+        // Grab the section target
+        const section = href.split('#')[1];
+        const redirectTo = `../index.html?section=${section}`;
+
+        // Close the nav menu if open (for mobile)
         const aside = document.querySelector('.aside');
         const toggler = document.querySelector('.nav-toggler');
+
         if (aside.classList.contains('open')) {
           aside.classList.remove('open');
-          toggler.classList.remove('open');
-          document.body.classList.remove('lock-scroll');
         }
 
-        // Redirect to index with section param
-        window.location.href = targetURL;
+        if (toggler.classList.contains('open')) {
+          toggler.classList.remove('open');
+        }
+
+        document.body.classList.remove('lock-scroll');
+
+        // Delay slightly to allow close animation before redirecting
+        setTimeout(() => {
+          window.location.href = redirectTo;
+        }, 150); // 150ms delay
       }
     });
   });
