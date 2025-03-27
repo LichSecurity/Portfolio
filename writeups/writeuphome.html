@@ -14,86 +14,83 @@
     canvas {
       pointer-events: none;
     }
-
     .section {
       z-index: 3;
       position: relative;
-      padding-left: 15px;
-      padding-right: 15px;
     }
-
     @media (max-width: 1190px) {
       .section {
-        padding-left: 30px;
-        margin-left: 0 !important;
-      }
-
-      .aside {
-        display: none;
-      }
-
-      .container {
-        margin-left: auto;
-        margin-right: auto;
+        padding-left: 0 !important;
       }
     }
-
-    @media (max-width: 768px) {
-      .padd-15 {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-      }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    .scrollable {
+      overflow-y: auto;
     }
   </style>
 </head>
 <body class="dark">
 
-  <!-- Sidebar Navigation -->
-  <div class="aside">
-    <div class="logo">
-      <a href="index.html"><span>L1chS3c</span></a>
-      <div class="profile-pic">
-        <img src="../images/profile.jpg" alt="Profile Picture">
-      </div>
+<!-- Sidebar -->
+<div class="aside">
+  <div class="logo">
+    <a href="index.html"><span>L1chS3c</span></a>
+    <div class="profile-pic">
+      <img src="../images/profile.jpg" alt="Profile Picture">
     </div>
-    <ul class="nav">
-      <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
-      <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
-      <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
-      <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
-      <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
-    </ul>
   </div>
+  <div class="nav-toggler">
+    <span></span>
+  </div>
+  <ul class="nav">
+    <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
+    <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
+    <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
+    <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
+  </ul>
+</div>
 
-  <!-- Matrix Background -->
-  <canvas id="matrixCanvas"></canvas>
-  <script src="../js/matrix.js"></script>
+<!-- Matrix Background -->
+<canvas id="matrixCanvas"></canvas>
+<script src="../js/matrix.js"></script>
 
-  <!-- Writeup Section -->
-  <section class="section">
-    <div class="container">
-      <div class="section-title">
-        <h2>Writeups</h2>
-      </div>
-      <p style="color: var(--text-black-700); margin-bottom: 40px; font-size: 18px;">
-        These are walkthroughs of machines, real vulnerabilities, and interesting security problems I’ve solved.
-      </p>
+<!-- Main Content -->
+<section class="section scrollable">
+  <div class="container">
+    <div class="section-title">
+      <h2>Writeups</h2>
+    </div>
+    <p style="color: var(--text-black-700); margin-bottom: 40px; font-size: 18px;">
+      These are walkthroughs of machines, real vulnerabilities, and interesting security problems I’ve solved.
+    </p>
 
-      <div class="row">
-        <!-- Sample Writeup Card -->
-        <div class="padd-15" style="flex: 0 0 33.33%; max-width: 33.33%;">
-          <div style="background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; box-shadow: 0 0 10px red;">
-            <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
-            <p style="color: var(--text-black-700); font-size: 14px;">Enumeration > Exploitation > PrivEsc</p>
-            <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
-          </div>
+    <div class="row">
+      <!-- Sample Writeup Card -->
+      <div class="padd-15" style="flex: 0 0 33.33%; max-width: 33.33%;">
+        <div style="background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; box-shadow: 0 0 10px red;">
+          <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
+          <p style="color: var(--text-black-700); font-size: 14px;">Enumeration > Exploitation > PrivEsc</p>
+          <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
         </div>
-        <!-- Add more cards here -->
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- Mobile Nav Toggle Script -->
+<script>
+  const navToggler = document.querySelector(".nav-toggler");
+  const aside = document.querySelector(".aside");
+
+  navToggler.addEventListener("click", () => {
+    aside.classList.toggle("open");
+    navToggler.classList.toggle("open");
+  });
+</script>
 
 </body>
 </html>
