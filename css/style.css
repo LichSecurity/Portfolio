@@ -203,6 +203,22 @@ ul {
   text-shadow: 5px 4px 10px red;
 }
 
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 10px auto 0 auto;
+  border: 2px solid red;
+  box-shadow: 0 0 10px red;
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .aside .logo a {
   color: var(--text-black-700);
   font-weight: 700;
