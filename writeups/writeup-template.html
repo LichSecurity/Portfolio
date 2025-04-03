@@ -32,35 +32,27 @@
     </ul>
   </div>
 
-  <!-- Main Writeup Content -->
-  <section class="section" style="padding-left: 15px;">
-    <div class="container">
-      <div class="section-title">
-        <h2>HTB: MachineName</h2>
-      </div>
-
-      <p style="color: var(--text-black-700); font-size: 18px; margin-bottom: 30px;">
-        Difficulty: Medium • OS: Linux • Tags: Enumeration, Exploitation, PrivEsc
+ <div class="row">
+  <!-- Sau Writeup Card -->
+  <div class="padd-15 writeup-col">
+    <div class="writeup-card">
+      <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: Sau</h3>
+      <p style="color: var(--text-black-700); font-size: 14px;">
+        SSRF > Internal RCE > Sudo Misconfig to Root
       </p>
-
-      <h3 style="color: var(--skin-color); margin-top: 20px;">Enumeration</h3>
-      <p style="color: var(--text-black-700); margin-bottom: 20px;">
-        Nmap scan revealed SSH and HTTP open. Web enumeration discovered a login portal vulnerable to SQLi.
-      </p>
-
-      <h3 style="color: var(--skin-color); margin-top: 20px;">Exploitation</h3>
-      <p style="color: var(--text-black-700); margin-bottom: 20px;">
-        Used SQLMap to dump credentials. Logged in via SSH. Found a custom script running as root.
-      </p>
-
-      <h3 style="color: var(--skin-color); margin-top: 20px;">Privilege Escalation</h3>
-      <p style="color: var(--text-black-700); margin-bottom: 40px;">
-        The script was writable and executed on a timer. Replaced it with a reverse shell and caught root.
-      </p>
-
-      <a href="writeuphome.html" class="btn">← Back to Writeups</a>
+      <a href="sau-writeup.html" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
     </div>
-  </section>
+  </div>
+
+  <!-- Template Card (Use this for adding more later) -->
+  <div class="padd-15 writeup-col">
+    <div class="writeup-card">
+      <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
+      <p style="color: var(--text-black-700); font-size: 14px;">Enumeration > Exploitation > PrivEsc</p>
+      <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
+    </div>
+  </div>
+</div>
 
   <!-- Optional: Script for toggling sidebar on mobile (if needed) -->
   <script src="../js/script.js"></script>
