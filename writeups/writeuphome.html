@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/skins/color-red.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  
+
   <style>
     canvas {
       pointer-events: none;
@@ -27,7 +27,7 @@
       }
     }
 
-    /* Writeup Cards Layout Fix */
+    /* Writeup Cards */
     .writeup-card {
       background: rgba(0,0,0,0.7);
       padding: 20px;
@@ -52,7 +52,7 @@
 </head>
 <body class="dark">
 
-<!-- ASIDE NAVIGATION -->
+<!-- Sidebar / Navigation -->
 <div class="aside">
   <div class="logo">
     <a href="../index.html"><span>L1chS3c</span></a>
@@ -74,7 +74,7 @@
   </ul>
 </div>
 
-<!-- MATRIX BACKGROUND -->
+<!-- Matrix Background -->
 <canvas id="matrixCanvas"></canvas>
 <script src="../js/matrix.js"></script>
 
@@ -89,7 +89,18 @@
     </p>
 
     <div class="row">
-      <!-- Writeup Card -->
+      <!-- Sau Writeup Card -->
+      <div class="padd-15 writeup-col">
+        <div class="writeup-card">
+          <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: Sau</h3>
+          <p style="color: var(--text-black-700); font-size: 14px;">
+            SSRF → Internal RCE → Sudo Misconfig to Root
+          </p>
+          <a href="sau-writeup.html" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
+        </div>
+      </div>
+
+      <!-- Template Card (Add more here as you complete boxes) -->
       <div class="padd-15 writeup-col">
         <div class="writeup-card">
           <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
@@ -97,13 +108,12 @@
           <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
         </div>
       </div>
-      <!-- Add more cards here -->
     </div>
   </div>
 </section>
+
 <script>
   window.addEventListener("DOMContentLoaded", () => {
-    // Fix: Close nav bar if user arrives from writeups
     const aside = document.querySelector('.aside');
     const toggler = document.querySelector('.nav-toggler');
 
@@ -118,19 +128,14 @@
       const targetSection = document.querySelector(`#${section}`);
       const navLinks = document.querySelectorAll(".nav li a");
 
-      // Deactivate all sections
       document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active", "back-section"));
-      // Deactivate all nav links
       navLinks.forEach(link => link.classList.remove("active"));
 
-      // Activate target section
       if (targetSection) targetSection.classList.add("active");
 
-      // Activate corresponding nav link
       const matchingLink = document.querySelector(`.nav a[href="#${section}"]`);
       if (matchingLink) matchingLink.classList.add("active");
 
-      // Scroll to top of section
       targetSection?.scrollIntoView({ behavior: "smooth" });
     }
   });
