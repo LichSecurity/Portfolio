@@ -83,7 +83,7 @@
 
     <!-- ===== OVERVIEW ===== -->
     <h3>Overview</h3>
-    <img src="images/sauhero.png" alt="Sau Hero Image">
+    <img src="../images/sauhero.png" alt="Sau Hero Image">
 
     <p>
       <strong>Sau</strong> is an Easy-rated Linux box that showcases one of my favorite types of vulnerabilities: <strong>Server-Side Request Forgery (SSRF)</strong>.
@@ -178,7 +178,7 @@ Nmap done: 1 IP address (1 host up) scanned in 100.38 seconds</code></pre>
 8338/tcp  filtered unknown
 55555/tcp open     unknown</code></pre>
 
-    <img src="images/saunewbasket.png" alt="sau new basket">
+    <img src="../images/saunewbasket.png" alt="sau new basket">
 
     <!-- ===== EXPLOITATION ===== -->
     <h3> Request Baskets SSRF</h3>
@@ -191,11 +191,11 @@ We created a new basket via <code>curl</code>:</p>
 
     <p>We can also do this previous step with the help of burp. Simply turn on your proxy and create a box to capture the request in BURP. I use foxy proxy for this.</p>
 
-    <img src="images/saucreate.png" alt="create basket">
+    <img src="../images/saucreate.png" alt="create basket">
 
 <p>Now can can grab the request in burp and send it to repeater</p>
  
-<img src="images/saubrup1.png" alt="Burp POST Request Screenshot">
+<img src="../images/sauburp1.png" alt="Burp POST Request Screenshot">
 
 <h2>What Happens When You do This?</h2>
 <ul>
@@ -221,7 +221,7 @@ We created a new basket via <code>curl</code>:</p>
 
 <p>Next, we reconfigure our <code>hackbox</code> basket with a <code>PUT</code> request. This sets the <code>forward_url</code> to our attack box, which turns the basket into an SSRF relay:</p>
 
-<img src="images/saupost.png" alt="Burp PUT Request Screenshot">
+<img src="../images/saupost.png" alt="Burp PUT Request Screenshot">
 
 <h3>Explanation:</h3>
 <ul>
@@ -304,14 +304,14 @@ We created a new basket via <code>curl</code>:</p>
     <h3>SSRF to Maltrail (Port 80)</h3>
     <p>We updated our basket to forward to <code>127.0.0.1:80</code></p>
 
-    <img src="images/sauloopback.png" alt="Maltrail Interface via SSRF">
+    <img src="../images/sauloopback.png" alt="Maltrail Interface via SSRF">
 
     <p>> This tells the vulnerable app: 
     Any time someone accesses <code>/hackbox</code>, I want you to make that same request to <strong>your own localhost</strong> on port 80.
     We’re not scanning from our machine anymore — **we’re telling the vulnerable box to make a local HTTP request to itself**.
     Now if we visit http://10.129.229.26:55555/hackbox….</p>
 
- <img src="images/saumaltrail.png" alt="Maltrail reveal">
+ <img src="../images/saumaltrail.png" alt="Maltrail reveal">
 
 <p><strong>Revealed an instance of Maltrail v0.53</strong></p>
 
@@ -407,7 +407,7 @@ puma</code></pre>
 </ol>
 
 
-    <img src="images/sauroot.png" alt="Root Shell Screenshot">
+    <img src="../images/sauroot.png" alt="Root Shell Screenshot">
 
     <!-- ===== TAKEAWAYS ===== -->
     <h3>Takeaways</h3>
