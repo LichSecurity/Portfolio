@@ -9,13 +9,72 @@
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/skins/color-red.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+  <style>
+    /* Profile Image & Logo Area */
+    .logo {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 20px auto;
+      border: 3px solid var(--skin-color);
+      box-shadow: 0 0 20px red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+    }
+
+    .profile-pic img {
+      width: 110%;
+      height: 110%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+    }
+
+    /* Card Grid Layout */
+    .writeup-card {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px red;
+      max-width: 100%;
+    }
+
+    .writeup-col {
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      padding: 15px;
+    }
+
+    @media (max-width: 990px) {
+      .writeup-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  </style>
 </head>
 <body class="dark">
   <!-- Matrix Background -->
   <canvas id="matrixCanvas"></canvas>
   <script src="../js/matrix.js"></script>
 
-  <!-- Sidebar / Nav -->
+  <!-- Sidebar / Navigation -->
   <div class="aside">
     <div class="logo">
       <a href="../index.html"><span>L1chS3c</span></a>
@@ -23,6 +82,7 @@
         <img src="../images/profile.jpg" alt="Profile Picture">
       </div>
     </div>
+
     <ul class="nav">
       <li><a href="../index.html#home"><i class="fa fa-home"></i> Home</a></li>
       <li><a href="../index.html#about"><i class="fa fa-user"></i> About</a></li>
@@ -32,29 +92,42 @@
     </ul>
   </div>
 
- <div class="row">
-  <!-- Sau Writeup Card -->
-  <div class="padd-15 writeup-col">
-    <div class="writeup-card">
-      <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: Sau</h3>
-      <p style="color: var(--text-black-700); font-size: 14px;">
-        SSRF > Internal RCE > Sudo Misconfig to Root
+  <!-- Writeup Card Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Writeups</h2>
+      </div>
+
+      <p style="color: var(--text-black-700); margin-bottom: 40px; font-size: 18px;">
+        These are walkthroughs of machines, real vulnerabilities, and interesting security problems I’ve solved.
       </p>
-      <a href="sau-writeup.html" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
-    </div>
-  </div>
 
-  <!-- Template Card (Use this for adding more later) -->
-  <div class="padd-15 writeup-col">
-    <div class="writeup-card">
-      <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
-      <p style="color: var(--text-black-700); font-size: 14px;">Enumeration > Exploitation > PrivEsc</p>
-      <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
-    </div>
-  </div>
-</div>
+      <div class="row">
+        <!-- Example Card: Sau -->
+        <div class="padd-15 writeup-col">
+          <div class="writeup-card">
+            <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: Sau</h3>
+            <p style="color: var(--text-black-700); font-size: 14px;">
+              SSRF → Internal RCE → Sudo Misconfig to Root
+            </p>
+            <a href="sau-writeup.html" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
+          </div>
+        </div>
 
-  <!-- Optional: Script for toggling sidebar on mobile (if needed) -->
+        <!-- Template Card (copy this to add more) -->
+        <div class="padd-15 writeup-col">
+          <div class="writeup-card">
+            <h3 style="color: var(--text-black-900); margin-bottom: 10px;">HackTheBox: MachineName</h3>
+            <p style="color: var(--text-black-700); font-size: 14px;">Enumeration > Exploitation > PrivEsc</p>
+            <a href="#" class="btn" style="margin-top: 10px; display: inline-block;">Read Writeup</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
   <script src="../js/script.js"></script>
 </body>
 </html>
