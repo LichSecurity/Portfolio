@@ -50,15 +50,26 @@
   text-align: center;
 }
 
-.logo .profile-pic {
-  margin-top: 15px;
-  width: 100px;
-  height: 100px;
+.profile-pic {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
+  margin: 20px auto;
   border: 3px solid var(--skin-color);
-  box-shadow: 0 0 10px red;
-  display: inline-block;
+  box-shadow: 0 0 20px red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black; /* Optional: helps avoid edge bleed */
+}
+
+.profile-pic img {
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
 }
 
   </style>
